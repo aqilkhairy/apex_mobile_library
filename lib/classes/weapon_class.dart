@@ -3,7 +3,15 @@ class Weapon {
   String ammo = 'undefined';
   String type = 'undefined';
   bool isSupplyDrop = false;
+  int baseDamage = 0;
+  int headDamage = 0;
+  int legDamage = 0;
+  int rpm = 0;
+  int baseCapacity = 0;
+  double tacReload = 0.0;
+  double fullReload = 0.0;
 
+  double rps = 0;
   int ammoColor = 0x000000;
 
   refresh() {
@@ -21,5 +29,7 @@ class Weapon {
     } else if (ammo.toLowerCase() == 'sniper') {
       ammoColor = 0xFF204F91;
     }
+
+    rps = (rpm / 60);
   }
 }
