@@ -26,7 +26,8 @@ class WeaponDetailScreen extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              Image.asset('lib/assets/images/weapons/flatline.webp'),
+              Image.asset(
+                  'lib/assets/images/weapons/${weapon.name.toLowerCase().replaceAll('-', '').replaceAll(' ', '')}.webp'),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Center(
