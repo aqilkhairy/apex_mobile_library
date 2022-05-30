@@ -17,7 +17,6 @@ class Weapon {
   refresh() {
     if (isSupplyDrop) {
       ammoColor = 0xFFFF225D;
-      ammo = 'Supply Drop';
     } else if (ammo.toLowerCase() == 'energy') {
       ammoColor = 0xFFA4E400;
     } else if (ammo.toLowerCase() == 'heavy') {

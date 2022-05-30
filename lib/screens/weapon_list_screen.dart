@@ -29,32 +29,49 @@ class WeaponListScreen extends StatelessWidget {
                       ? Colors.black
                       : Colors.white),
             );
-            return ListTile(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => WeaponDetailScreen(
-                    weapon: weaponList[index],
+            return Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                fit: BoxFit.fitHeight,
+                alignment: Alignment.centerLeft,
+                opacity: 0.45,
+                image: AssetImage(weaponList[index].isSupplyDrop
+                    ? 'lib/assets/images/ammo/${weaponList[index].ammo.toLowerCase()}_mythic.png'
+                    : 'lib/assets/images/ammo/${weaponList[index].ammo.toLowerCase()}.png'),
+              )),
+              child: ListTile(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => WeaponDetailScreen(
+                      weapon: weaponList[index],
+                    ),
                   ),
                 ),
+                title: Text(weaponList[index].name),
+                trailing: ElevatedButton(
+                  onPressed: null,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Color(weaponList[index].ammoColor),
+                    ),
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                      const EdgeInsets.all(10),
+                    ),
+                  ),
+                  child: Text(
+                    (weaponList[index].isSupplyDrop
+                        ? 'SUPPLY DROP'
+                        : weaponList[index].ammo.toUpperCase()),
+                    style: weaponTextStyle,
+                  ),
+                ),
+                subtitle: Text(weaponList[index].type),
+                leading: Image.asset(
+                    'lib/assets/images/weapons/icons/${weaponList[index].name.toLowerCase().replaceAll('-', '').replaceAll(' ', '')}.png',
+                    width: 80,
+                    height: 80),
               ),
-              title: Text(weaponList[index].name),
-              trailing: ElevatedButton(
-                onPressed: null,
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    Color(weaponList[index].ammoColor),
-                  ),
-                  padding: MaterialStateProperty.all<EdgeInsets>(
-                    const EdgeInsets.all(10),
-                  ),
-                ),
-                child: Text(
-                  weaponList[index].ammo.toUpperCase(),
-                  style: weaponTextStyle,
-                ),
-              ),
-              subtitle: Text(weaponList[index].type),
             );
           });
     }
