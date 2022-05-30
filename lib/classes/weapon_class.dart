@@ -10,6 +10,7 @@ class Weapon {
   int baseCapacity = 0;
   double tacReload = 0.0;
   double fullReload = 0.0;
+  String description = 'undefined';
 
   double rps = 0;
   int ammoColor = 0x000000;

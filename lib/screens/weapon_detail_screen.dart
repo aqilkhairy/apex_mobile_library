@@ -8,11 +8,99 @@ class WeaponDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle weaponTextStyle = TextStyle(
+      color: (Color(weapon.ammoColor).computeLuminance() > 0.5
+          ? Colors.black
+          : Colors.white),
+    );
     return Scaffold(
       appBar: AppBar(
-        title: Text(weapon.name),
+        title: Text(
+          weapon.name,
+          style: weaponTextStyle,
+        ),
         backgroundColor: Color(weapon.ammoColor),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(10),
+        child: Center(
+          child: Column(
+            children: [
+              Image.asset('lib/assets/images/weapons/flatline.webp'),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Center(
+                  child: Text(weapon.description),
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  fit: BoxFit.contain,
+                  image: AssetImage(weapon.isSupplyDrop
+                      ? 'lib/assets/images/ammo/${weapon.ammo.toLowerCase()}_mythic.png'
+                      : 'lib/assets/images/ammo/${weapon.ammo.toLowerCase()}.png'),
+                )),
+                child: Table(children: [
+                  //row start
+                  _newRow('Type', Text(weapon.type), weapon),
+                  _newRow('Ammo', Text(weapon.ammo), weapon),
+                  _newRow(
+                      'Supply Drop Weapon',
+                      Text(weapon.isSupplyDrop.toString().toUpperCase()),
+                      weapon),
+                  _newRow('Base Capacity', Text(weapon.baseCapacity.toString()),
+                      weapon),
+                  _newRow('Rate per minute (RPM)', Text(weapon.rpm.toString()),
+                      weapon),
+                  _newRow('Rate per second (RPM)', Text(weapon.rps.toString()),
+                      weapon),
+                  _newRow('Headshot Damage', Text(weapon.headDamage.toString()),
+                      weapon),
+                  _newRow('Bodyshot Damage', Text(weapon.baseDamage.toString()),
+                      weapon),
+                  _newRow('Legshot Damage', Text(weapon.legDamage.toString()),
+                      weapon),
+                  _newRow('Tac Reload', Text('${weapon.tacReload}s'), weapon),
+                  _newRow('Full Reload', Text('${weapon.fullReload}s'), weapon),
+                  //row ends
+                ]),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
+}
+
+TableRow _newRow(String firstCell, Widget secondCell, Weapon weapon) {
+  TextStyle weaponTextStyle = TextStyle(
+    color: (Color(weapon.ammoColor).computeLuminance() > 0.5
+        ? Colors.black
+        : Colors.white),
+  );
+  return TableRow(children: [
+    TableCell(
+      verticalAlignment: TableCellVerticalAlignment.middle,
+      child: Container(
+        color: Color(weapon.ammoColor),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Text(
+            firstCell,
+            style: weaponTextStyle,
+            textAlign: TextAlign.right,
+          ),
+        ),
+      ),
+    ),
+    TableCell(
+      verticalAlignment: TableCellVerticalAlignment.middle,
+      child: Container(
+        color: const Color.fromARGB(183, 255, 255, 255),
+        child: Padding(padding: const EdgeInsets.all(10), child: secondCell),
+      ),
+    ),
+  ]);
 }

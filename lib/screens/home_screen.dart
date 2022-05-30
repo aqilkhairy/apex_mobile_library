@@ -67,17 +67,32 @@ class _HomeScreenState extends State<HomeScreen> {
     var jsonFeedback = jsonDecode(raw.body);
     jsonFeedback.forEach((element) {
       Weapon weapon = Weapon();
-      weapon.name = (element["name"]);
-      weapon.ammo = (element["ammo"]);
-      weapon.type = (element["type"]);
+      weapon.name = (element["name"] == null) ? weapon.name : element["name"];
+      weapon.ammo = (element["ammo"] == null) ? weapon.ammo : element["ammo"];
+      weapon.type = (element["type"] == null) ? weapon.type : element["type"];
       weapon.isSupplyDrop = (element["isSupplyDrop"] == 'yes') ? true : false;
-      weapon.baseDamage = (element["baseDamage"]);
-      weapon.headDamage = (element["headDamage"]);
-      weapon.legDamage = (element["legDamage"]);
-      weapon.rpm = (element["rpm"]);
-      weapon.baseCapacity = (element["baseCapacity"]);
-      weapon.tacReload = (element["tacReload"]);
-      weapon.fullReload = (element["fullReload"]);
+      weapon.baseDamage = (element["baseDamage"] == null)
+          ? weapon.baseDamage
+          : element["baseDamage"];
+      weapon.headDamage = (element["headDamage"] == null)
+          ? weapon.headDamage
+          : element["headDamage"];
+      weapon.legDamage = (element["legDamage"] == null)
+          ? weapon.legDamage
+          : element["legDamage"];
+      weapon.rpm = (element["rpm"] == null) ? weapon.rpm : element["rpm"];
+      weapon.baseCapacity = (element["baseCapacity"] == null)
+          ? weapon.baseCapacity
+          : element["baseCapacity"];
+      weapon.tacReload = (element["tacReload"] == null)
+          ? weapon.tacReload
+          : element["tacReload"];
+      weapon.fullReload = (element["fullReload"] == null)
+          ? weapon.fullReload
+          : element["fullReload"];
+      weapon.description = (element["description"] == null)
+          ? weapon.description
+          : element["description"];
       weapon.refresh();
       weaponList.add(weapon);
     });
