@@ -11,13 +11,8 @@ class WeaponListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (weaponList.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: const [
-            Text("Fetching data...please wait."),
-          ],
-        ),
+      return const Center(
+        child: Text("Fetching data...try refresh the page."),
       );
     } else {
       return ListView.builder(

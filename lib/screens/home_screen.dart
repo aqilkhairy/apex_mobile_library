@@ -1,20 +1,42 @@
-import 'dart:convert';
+import 'package:flutter/material.dart';
 
+import 'package:apex_mobile_library/classes/ammo_class.dart';
+import 'package:apex_mobile_library/classes/class_class.dart';
+import 'package:apex_mobile_library/classes/class_perk_class.dart';
 import 'package:apex_mobile_library/classes/weapon_class.dart';
 import 'package:apex_mobile_library/screens/legend_list_screen.dart';
 import 'package:apex_mobile_library/screens/weapon_list_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen(
+      {Key? key,
+      required this.weaponList,
+      required this.ammoList,
+      required this.classList,
+      required this.classPerkList})
+      : super(key: key);
+
+  final List<Weapon> weaponList;
+  final List<Ammo> ammoList;
+  final List<Class> classList;
+  final List<ClassPerk> classPerkList;
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() =>
+      // ignore: no_logic_in_create_state
+      _HomeScreenState(weaponList, ammoList, classList, classPerkList);
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  final List<Weapon> weaponList;
+  final List<Ammo> ammoList;
+  final List<Class> classList;
+  final List<ClassPerk> classPerkList;
+
   int selectedIndex = 0;
+
+  _HomeScreenState(
+      this.weaponList, this.ammoList, this.classList, this.classPerkList);
   void changePage(int value) {
     setState(() {
       selectedIndex = value;
@@ -23,29 +45,29 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    getWeaponFromSheet();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text('Apex Mobile Library'),
-        ),
-      ),
       body: (selectedIndex == 0)
-          ? WeaponListScreen(
-              weaponList: weaponList,
-            )
-          : const LegendListScreen(),
+          ? const Home()
+          : (selectedIndex == 1)
+              ? WeaponListScreen(
+                  weaponList: weaponList,
+                )
+              : const LegendListScreen(),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) => changePage(value),
         currentIndex: selectedIndex,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.album_outlined),
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.short_text),
             label: 'Weapons',
           ),
           BottomNavigationBarItem(
@@ -56,50 +78,13 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
 
-  //JSON data fetching
-  final List<Weapon> weaponList = <Weapon>[];
-  getWeaponFromSheet() async {
-    var raw = await http.get(
-      Uri.parse(
-          "https://script.google.com/macros/s/AKfycbycJ7jkwGcSEO3z9bfssGiaYaMHwEfdvlXWz4sn4DFh5k4vMUio9qbxdIwtQoAwFpo3/exec"),
-    );
-    var jsonFeedback = jsonDecode(raw.body);
-    jsonFeedback["weapon"].forEach((element) {
-      Weapon weapon = Weapon();
-      weapon.name = (element["name"] == null) ? weapon.name : element["name"];
-      weapon.ammo = (element["ammo"] == null) ? weapon.ammo : element["ammo"];
-      weapon.type = (element["type"] == null) ? weapon.type : element["type"];
-      weapon.isSupplyDrop = (element["isSupplyDrop"] == 'yes') ? true : false;
-      weapon.baseDamage = (element["baseDamage"] == null)
-          ? weapon.baseDamage
-          : element["baseDamage"];
-      weapon.headDamage = (element["headDamage"] == null)
-          ? weapon.headDamage
-          : element["headDamage"];
-      weapon.legDamage = (element["legDamage"] == null)
-          ? weapon.legDamage
-          : element["legDamage"];
-      weapon.rpm = (element["rpm"] == null) ? weapon.rpm : element["rpm"];
-      weapon.baseCapacity = (element["baseCapacity"] == null)
-          ? weapon.baseCapacity
-          : element["baseCapacity"];
-      weapon.tacReload = (element["tacReload"] == null)
-          ? weapon.tacReload
-          : element["tacReload"];
-      weapon.fullReload = (element["fullReload"] == null)
-          ? weapon.fullReload
-          : element["fullReload"];
-      weapon.description = (element["description"] == null)
-          ? weapon.description
-          : element["description"];
-      weapon.imageUrl =
-          (element["imageUrl"] == null) ? weapon.imageUrl : element["imageUrl"];
-      weapon.iconUrl =
-          (element["iconUrl"] == null) ? weapon.iconUrl : element["iconUrl"];
-      weapon.refresh();
-      weaponList.add(weapon);
-    });
-    setState(() {});
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text('HOME!'));
   }
 }
