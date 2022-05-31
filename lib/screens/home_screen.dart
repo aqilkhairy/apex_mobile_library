@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
           "https://script.google.com/macros/s/AKfycbycJ7jkwGcSEO3z9bfssGiaYaMHwEfdvlXWz4sn4DFh5k4vMUio9qbxdIwtQoAwFpo3/exec"),
     );
     var jsonFeedback = jsonDecode(raw.body);
-    jsonFeedback.forEach((element) {
+    jsonFeedback["weapon"].forEach((element) {
       Weapon weapon = Weapon();
       weapon.name = (element["name"] == null) ? weapon.name : element["name"];
       weapon.ammo = (element["ammo"] == null) ? weapon.ammo : element["ammo"];
@@ -93,6 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
       weapon.description = (element["description"] == null)
           ? weapon.description
           : element["description"];
+      weapon.imageUrl =
+          (element["imageUrl"] == null) ? weapon.imageUrl : element["imageUrl"];
+      weapon.iconUrl =
+          (element["iconUrl"] == null) ? weapon.iconUrl : element["iconUrl"];
       weapon.refresh();
       weaponList.add(weapon);
     });

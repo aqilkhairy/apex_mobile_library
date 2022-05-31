@@ -11,6 +11,8 @@ class Weapon {
   double tacReload = 0.0;
   double fullReload = 0.0;
   String description = 'undefined';
+  String imageUrl = 'undefined';
+  String iconUrl = 'undefined';
 
   double rps = 0;
   int ammoColor = 0x000000;
