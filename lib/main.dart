@@ -4,10 +4,13 @@ import 'package:apex_mobile_library/classes/class_perk_class.dart';
 import 'package:apex_mobile_library/classes/weapon_class.dart';
 import 'package:apex_mobile_library/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   getJSONFromSheet();
   runApp(const MyApp());
 }
@@ -17,16 +20,31 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Apex Mobile Library',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('lib/assets/images/bg.jpg'),
+          fit: BoxFit.cover,
+        ),
       ),
-      home: HomeScreen(
-        ammoList: ammoList,
-        classList: classList,
-        classPerkList: classPerkList,
-        weaponList: weaponList,
+      child: MaterialApp(
+        theme: ThemeData(
+          scaffoldBackgroundColor: const Color.fromARGB(0, 0, 0, 0),
+          textTheme: TextTheme(
+            bodyText1: const TextStyle().apply(color: Colors.white),
+            bodyText2: const TextStyle().apply(color: Colors.white),
+            subtitle1: const TextStyle().apply(color: Colors.white),
+            subtitle2: const TextStyle().apply(color: Colors.white),
+          ),
+        ),
+        color: Colors.black,
+        title: 'Apex Mobile Library',
+        home: HomeScreen(
+          ammoList: ammoList,
+          classList: classList,
+          classPerkList: classPerkList,
+          weaponList: weaponList,
+        ),
       ),
     );
   }
@@ -70,12 +88,14 @@ getWeapon(jsonFeedback) async {
     weapon.baseCapacity = (element["baseCapacity"] == null)
         ? weapon.baseCapacity
         : element["baseCapacity"];
-    weapon.tacReload = (element["tacReload"] == null)
-        ? weapon.tacReload
-        : element["tacReload"];
-    weapon.fullReload = (element["fullReload"] == null)
-        ? weapon.fullReload
-        : element["fullReload"];
+    weapon.tacReload =
+        (element["tacReload"] == null || element["tacReload"] == 0)
+            ? weapon.tacReload
+            : double.parse(element["tacReload"].toString());
+    weapon.fullReload =
+        (element["fullReload"] == null || element["fullReload"] == 0)
+            ? weapon.fullReload
+            : double.parse(element["fullReload"].toString());
     weapon.description = (element["description"] == null)
         ? weapon.description
         : element["description"];

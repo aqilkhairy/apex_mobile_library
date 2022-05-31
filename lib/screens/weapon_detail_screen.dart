@@ -14,6 +14,7 @@ class WeaponDetailScreen extends StatelessWidget {
           : Colors.white),
     );
     return Scaffold(
+      backgroundColor: const Color.fromARGB(119, 0, 0, 0),
       appBar: AppBar(
         title: Text(
           weapon.name,
@@ -34,14 +35,8 @@ class WeaponDetailScreen extends StatelessWidget {
                   child: Text(weapon.description),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                  fit: BoxFit.contain,
-                  image: AssetImage(weapon.isSupplyDrop
-                      ? 'lib/assets/images/ammo/${weapon.ammo.toLowerCase()}_mythic.png'
-                      : 'lib/assets/images/ammo/${weapon.ammo.toLowerCase()}.png'),
-                )),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Table(children: [
                   //row start
                   _newRow('Type', Text(weapon.type), weapon),
@@ -85,7 +80,7 @@ TableRow _newRow(String firstCell, Widget secondCell, Weapon weapon) {
     TableCell(
       verticalAlignment: TableCellVerticalAlignment.middle,
       child: Container(
-        color: Color(weapon.ammoColor),
+        color: Color(weapon.ammoColor).withOpacity(0.6),
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Text(
@@ -99,7 +94,7 @@ TableRow _newRow(String firstCell, Widget secondCell, Weapon weapon) {
     TableCell(
       verticalAlignment: TableCellVerticalAlignment.middle,
       child: Container(
-        color: const Color.fromARGB(183, 255, 255, 255),
+        color: const Color.fromARGB(183, 23, 23, 23),
         child: Padding(padding: const EdgeInsets.all(10), child: secondCell),
       ),
     ),
