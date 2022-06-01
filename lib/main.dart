@@ -4,13 +4,11 @@ import 'package:apex_mobile_library/classes/class_perk_class.dart';
 import 'package:apex_mobile_library/classes/weapon_class.dart';
 import 'package:apex_mobile_library/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  MobileAds.instance.initialize();
   getJSONFromSheet();
   runApp(const MyApp());
 }
