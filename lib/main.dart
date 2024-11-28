@@ -26,13 +26,14 @@ class MyApp extends StatelessWidget {
         ),
       ),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           scaffoldBackgroundColor: const Color.fromARGB(0, 0, 0, 0),
           textTheme: TextTheme(
-            bodyText1: const TextStyle().apply(color: Colors.white),
-            bodyText2: const TextStyle().apply(color: Colors.white),
-            subtitle1: const TextStyle().apply(color: Colors.white),
-            subtitle2: const TextStyle().apply(color: Colors.white),
+            titleLarge: const TextStyle().apply(color: Colors.white),
+            titleMedium: const TextStyle().apply(color: Colors.white),
+            bodyLarge: const TextStyle().apply(color: Colors.white),
+            bodyMedium: const TextStyle().apply(color: Colors.white),
           ),
         ),
         color: Colors.black,

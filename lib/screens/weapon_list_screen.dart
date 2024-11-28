@@ -11,10 +11,10 @@ class WeaponListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (weaponList.isEmpty) {
-      return Center(
+      return const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Text("Fetching data...try refresh the page."),
           ],
         ),
@@ -49,14 +49,17 @@ class WeaponListScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  title: Text(weaponList[index].name),
+                  title: Text(
+                    weaponList[index].name,
+                    style: const TextStyle(color: Colors.white),
+                  ),
                   trailing: ElevatedButton(
                     onPressed: null,
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
+                      backgroundColor: WidgetStateProperty.all<Color>(
                         Color(weaponList[index].ammoColor),
                       ),
-                      padding: MaterialStateProperty.all<EdgeInsets>(
+                      padding: WidgetStateProperty.all<EdgeInsets>(
                         const EdgeInsets.all(10),
                       ),
                     ),
